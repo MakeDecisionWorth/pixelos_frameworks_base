@@ -122,11 +122,10 @@ public class EmptyShadeView extends StackScrollerDecorView implements Launchable
         return findViewById(R.id.no_notifications_footer);
     }
 
-    /** Update view colors. */
-    public void setTextColors(@ColorInt int onSurface, @ColorInt int onSurfaceVariant) {
-        mEmptyText.setTextColor(onSurfaceVariant);
-        mEmptyFooterText.setTextColor(onSurface);
-        mEmptyFooterText.setCompoundDrawableTintList(ColorStateList.valueOf(onSurface));
+    public void setTextColor(@ColorInt int color) {
+        mEmptyText.setTextColor(color);
+        mEmptyFooterText.setTextColor(color);
+        mEmptyFooterText.setCompoundDrawableTintList(ColorStateList.valueOf(color));
     }
 
     /** Set the resource ID for the main text shown by the view. */

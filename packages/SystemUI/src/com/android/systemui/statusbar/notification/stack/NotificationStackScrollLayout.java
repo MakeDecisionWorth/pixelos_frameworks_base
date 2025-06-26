@@ -4727,29 +4727,26 @@ public class NotificationStackScrollLayout
     }
 
     /**
-     * Update colors of section headers, shade footer, and empty shade views.
+     * Update colors of "dismiss" and "empty shade" views.
      */
     void updateDecorViews() {
-        final @ColorInt int onSurface = Utils.getColorAttrDefaultColor(
-                mContext, com.android.internal.R.attr.materialColorOnSurface);
-        final @ColorInt int onSurfaceVariant = Utils.getColorAttrDefaultColor(
-                mContext, com.android.internal.R.attr.materialColorOnSurfaceVariant);
+        final @ColorInt int textColor =
+                Utils.getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
 
         ColorUpdateLogger colorUpdateLogger = ColorUpdateLogger.getInstance();
         if (colorUpdateLogger != null) {
             colorUpdateLogger.logEvent("NSSL.updateDecorViews()",
-                    "onSurface=" + ColorUtilKt.hexColorString(onSurface)
-                            + " onSurfaceVariant=" + ColorUtilKt.hexColorString(onSurfaceVariant));
+                    "textColor=" + ColorUtilKt.hexColorString(textColor));
         }
 
-        mSectionsManager.setHeaderForegroundColors(onSurface, onSurfaceVariant);
+        mSectionsManager.setHeaderForegroundColor(textColor);
 
         if (mFooterView != null) {
             mFooterView.updateColors();
         }
 
         if (mEmptyShadeView != null) {
-            mEmptyShadeView.setTextColors(onSurface, onSurfaceVariant);
+            mEmptyShadeView.setTextColor(textColor);
         }
     }
 

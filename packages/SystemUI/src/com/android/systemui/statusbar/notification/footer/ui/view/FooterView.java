@@ -457,48 +457,46 @@ public class FooterView extends StackScrollerDecorView {
      */
     public void updateColors() {
         Resources.Theme theme = mContext.getTheme();
-        final @ColorInt int onSurface = Utils.getColorAttrDefaultColor(mContext,
-                com.android.internal.R.attr.materialColorOnSurface);
+        final @ColorInt int textColor = getResources().getColor(R.color.notif_pill_text, theme);
         // Same resource, separate drawables to prevent touch effects from showing on the wrong
         // button.
         final Drawable clearAllBg = theme.getDrawable(R.drawable.notif_footer_btn_background);
         final Drawable settingsBg = theme.getDrawable(R.drawable.notif_footer_btn_background);
         final Drawable historyBg = NotifRedesignFooter.isEnabled()
                 ? theme.getDrawable(R.drawable.notif_footer_btn_background) : null;
-        final @ColorInt int scHigh;
+        final @ColorInt int buttonBgColor =
+                Utils.getColorAttrDefaultColor(mContext, com.android.internal.R.attr.colorSurface);
         if (!notificationFooterBackgroundTintOptimization()) {
-            scHigh = Utils.getColorAttrDefaultColor(mContext,
-                    com.android.internal.R.attr.materialColorSurfaceContainerHigh);
-            if (scHigh != 0) {
-                final ColorFilter bgColorFilter = new PorterDuffColorFilter(scHigh, SRC_ATOP);
+            if (buttonBgColor != 0) {
+                final ColorFilter bgColorFilter = new PorterDuffColorFilter(buttonBgColor, SRC_ATOP);
                 clearAllBg.setColorFilter(bgColorFilter);
                 settingsBg.setColorFilter(bgColorFilter);
                 if (NotifRedesignFooter.isEnabled()) {
                     historyBg.setColorFilter(bgColorFilter);
                 }
             }
-        } else {
-            scHigh = 0;
         }
         mClearAllButton.setBackground(clearAllBg);
-        mClearAllButton.setTextColor(onSurface);
+        mClearAllButton.setTextColor(textColor);
         if (NotifRedesignFooter.isEnabled()) {
             mSettingsButton.setBackground(settingsBg);
-            mSettingsButton.setCompoundDrawableTintList(ColorStateList.valueOf(onSurface));
+            mSettingsButton.setCompoundDrawableTintList(ColorStateList.valueOf(textColor));
 
             mHistoryButton.setBackground(historyBg);
-            mHistoryButton.setCompoundDrawableTintList(ColorStateList.valueOf(onSurface));
+            mHistoryButton.setCompoundDrawableTintList(ColorStateList.valueOf(textColor));
         } else {
             mManageOrHistoryButton.setBackground(settingsBg);
-            mManageOrHistoryButton.setTextColor(onSurface);
+            mManageOrHistoryButton.setTextColor(textColor);
         }
-        mSeenNotifsFooterTextView.setTextColor(onSurface);
-        mSeenNotifsFooterTextView.setCompoundDrawableTintList(ColorStateList.valueOf(onSurface));
+        final @ColorInt int labelTextColor =
+                Utils.getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
+        mSeenNotifsFooterTextView.setTextColor(labelTextColor);
+        mSeenNotifsFooterTextView.setCompoundDrawableTintList(
+                ColorStateList.valueOf(labelTextColor));
         ColorUpdateLogger colorUpdateLogger = ColorUpdateLogger.getInstance();
         if (colorUpdateLogger != null) {
             colorUpdateLogger.logEvent("Footer.updateColors()",
-                    "textColor(onSurface)=" + hexColorString(onSurface)
-                            + " backgroundTint(surfaceContainerHigh)=" + hexColorString(scHigh)
+                    "textColor=" + hexColorString(textColor)
                             + " background=" + DrawableDumpKt.dumpToString(settingsBg));
         }
     }
