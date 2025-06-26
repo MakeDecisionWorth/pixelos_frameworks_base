@@ -128,4 +128,7 @@
     <java-symbol type="array" name="config_cameraAuxPackageAllowList" />
     <java-symbol type="array" name="config_cameraAuxPackageExcludeList" />
 
+    <!-- Camera key type -->
+    <java-symbol type="bool" name="config_singleStageCameraKey" />
+
 </resources>
